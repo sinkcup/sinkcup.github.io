@@ -17,16 +17,16 @@ echo "add TXT to your domain DNS record"
 echo "press Enter"
 
 echo "Done!"
-sudo ls -l /etc/letsencrypt/live/ugc.my/
+sudo ls -l /etc/letsencrypt/live/example.com/
 
 
 echo "test on localhost"
 
 echo "edit local web server config, see the apache2 config below"
 sudo service apache2 restart
-echo "127.0.0.1 test.example.com" | sudo tee -a /etc/hosts
+echo "127.0.0.1 www.example.com" | sudo tee -a /etc/hosts
 
-curl -v "https://test.example.com/"
+curl -v "https://www.example.com/"
 ```
 
 ## Screenshots
