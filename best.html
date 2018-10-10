@@ -1,0 +1,425 @@
+---
+permalink: /best/
+layout: default
+title: "工具-最高销量的搭配"
+---
+
+<link rel="stylesheet" href="http://cdn.staticfile.org/pure/0.5.0/pure-min.css" />
+<style>
+#drop{
+        border:2px dashed #bbb;
+        -moz-border-radius:5px;
+        -webkit-border-radius:5px;
+        border-radius:5px;
+        padding:25px;
+        text-align:center;
+        font:20pt bold,"Vollkorn";color:#bbb
+}
+#b64data{
+        width:100%;
+}
+</style>
+<script>
+function sortObject(obj) {
+    var arr = [];
+    for (var prop in obj) {
+        if (obj.hasOwnProperty(prop)) {
+            arr.push({
+                'key': prop,
+                'value': obj[prop]
+            });
+        }
+    }
+    arr.sort(function(a, b) { return a.value - b.value; });
+    //arr.sort(function(a, b) { a.value.toLowerCase().localeCompare(b.value.toLowerCase()); }); //use this to sort as strings
+    return arr; // returns array
+}
+
+//组合
+//参数 arr为输入的数组
+//num 为抽取的个数
+function Combinations(arr, num) {
+        var r = [];
+        (function f(t, a, n) {
+            if (n == 0) return r.push(t);
+            for (var i = 0, l = a.length; i <= l - n; i++) {
+                f(t.concat(a[i]), a.slice(i + 1), n - 1);
+            }
+        })([], arr, num);
+        return r;
+    }
+ 
+//例,从1,2,3中取两个进行组合
+strr="1,2,3";
+var c1 = Combinations(strr.split(","), 2);
+console.log(c1);
+for(var k=0 ;k<c1.length ;k++) {
+    console.log((k+1) + " : " + c1[k]);
+}
+</script>
+
+<h1>工具-最高销量的搭配</h1>
+<p>需使用谷歌Chrome浏览器、火狐 或者 UC浏览器</p>
+<div style="display:none">
+    <select name="format">
+    <option value="csv"> CSV</option>
+    <option value="json" selected> JSON</option>
+    <option value="form"> FORMULAE</option>
+    </select>
+</div>
+
+<div id="drop">拖拽文件到这里 XLSX / XLSM / XLSB / ODS / XLS / XML</div>
+<p><input type="file" name="xlfile" id="xlf" accept=".xlsx,.xlsm,.xlsb,.ods,.xls" /> 或者打开excel复制粘贴进来：</p>
+<div>
+    <textarea cols=50 rows=5 id="text"></textarea>
+    <input type="button" value="分析" onclick="parseText();" />
+</div>
+<div style="display:none">
+Advanced Demo Options: <br />
+Use Web Workers: (when available) <input type="checkbox" name="useworker" checked><br />
+Use Transferrables: (when available) <input type="checkbox" name="xferable" checked><br />
+Use readAsBinaryString: (when available) <input type="checkbox" name="userabs" checked><br />
+</div>
+<div id="out"></div>
+<br />
+<!-- uncomment the next line here and in xlsxworker.js for encoding support -->
+<!--<script src="dist/cpexcel.js"></script>-->
+<script src="/js/shim.js"></script>
+<script src="//cdn.bootcss.com/xlsx/0.8.0/jszip.js"></script>
+<script src="//cdn.bootcss.com/xlsx/0.8.0/xlsx.full.min.js"></script>
+<!-- uncomment the next line here and in xlsxworker.js for ODS support -->
+<script src="//cdn.bootcss.com/xlsx/0.8.0/ods.js"></script>
+<script>
+var X = XLSX;
+var XW = {
+        /* worker message */
+        msg: 'xlsx',
+        /* worker scripts */
+        rABS: '/js/xlsxworker2.js',
+        norABS: '/js/xlsxworker1.js',
+        noxfer: '/js/xlsxworker.js'
+};
+
+var rABS = typeof FileReader !== "undefined" && typeof FileReader.prototype !== "undefined" && typeof FileReader.prototype.readAsBinaryString !== "undefined";
+if(!rABS) {
+        document.getElementsByName("userabs")[0].disabled = true;
+        document.getElementsByName("userabs")[0].checked = false;
+}
+
+var use_worker = typeof Worker !== 'undefined';
+if(!use_worker) {
+        document.getElementsByName("useworker")[0].disabled = true;
+        document.getElementsByName("useworker")[0].checked = false;
+}
+
+var transferable = use_worker;
+if(!transferable) {
+        document.getElementsByName("xferable")[0].disabled = true;
+        document.getElementsByName("xferable")[0].checked = false;
+}
+
+var wtf_mode = false;
+
+function fixdata(data) {
+        var o = "", l = 0, w = 10240;
+        for(; l<data.byteLength/w; ++l) o+=String.fromCharCode.apply(null,new Uint8Array(data.slice(l*w,l*w+w)));
+        o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
+        return o;
+}
+
+function ab2str(data) {
+        var o = "", l = 0, w = 10240;
+        for(; l<data.byteLength/w; ++l) o+=String.fromCharCode.apply(null,new Uint16Array(data.slice(l*w,l*w+w)));
+        o+=String.fromCharCode.apply(null, new Uint16Array(data.slice(l*w)));
+        return o;
+}
+
+function s2ab(s) {
+        var b = new ArrayBuffer(s.length*2), v = new Uint16Array(b);
+        for (var i=0; i != s.length; ++i) v[i] = s.charCodeAt(i);
+        return [v, b];
+}
+
+function xw_noxfer(data, cb) {
+        var worker = new Worker(XW.noxfer);
+        worker.onmessage = function(e) {
+                switch(e.data.t) {
+                        case 'ready': break;
+                        case 'e': console.error(e.data.d); break;
+                        case XW.msg: cb(JSON.parse(e.data.d)); break;
+                }
+        };
+        var arr = rABS ? data : btoa(fixdata(data));
+        worker.postMessage({d:arr,b:rABS});
+}
+
+function xw_xfer(data, cb) {
+        var worker = new Worker(rABS ? XW.rABS : XW.norABS);
+        worker.onmessage = function(e) {
+                switch(e.data.t) {
+                        case 'ready': break;
+                        case 'e': console.error(e.data.d); break;
+                        default: xx=ab2str(e.data).replace(/\n/g,"\\n").replace(/\r/g,"\\r"); console.log("done"); cb(JSON.parse(xx)); break;
+                }
+        };
+        if(rABS) {
+                var val = s2ab(data);
+                worker.postMessage(val[1], [val[1]]);
+        } else {
+                worker.postMessage(data, [data]);
+        }
+}
+
+function xw(data, cb) {
+        transferable = document.getElementsByName("xferable")[0].checked;
+        if(transferable) xw_xfer(data, cb);
+        else xw_noxfer(data, cb);
+}
+
+function get_radio_value( radioName ) {
+        var radios = document.getElementsByName( radioName );
+        for( var i = 0; i < radios.length; i++ ) {
+                if( radios[i].checked || radios.length === 1 ) {
+                        return radios[i].value;
+                }
+        }
+}
+
+var isExcelText = false;
+function to_json(workbook) {
+    var result = [];
+    workbook.SheetNames.forEach(function(sheetName) {
+        var sheet = X.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+        if(sheet.length > 0) {
+            result = dealSheet(sheet); // todo 只支持单个sheet
+            return;
+        }
+    });
+    return result;
+}
+function dealSheet(sheet) {
+    var roa = sheet;
+    console.log(roa);
+    var result = {};
+    var sku_orders = {};
+    var model_orders = {};
+    var best_selling_sku_packages = {};
+    var best_selling_model_packages = {};
+    for (var i in roa) {
+        var order_id = roa[i]['单据编号'];
+        if (typeof sku_orders[order_id] == 'undefined') {
+            sku_orders[order_id] = {
+                "data": [],
+                "num" : parseInt(roa[i]['数量']) < 0 ? -1 : 1
+            };
+        }
+        sku_orders[order_id].data.push(roa[i]['SKU']);
+    }
+    for (var i in sku_orders) {
+        if (sku_orders[i].data.length == 1) {
+            continue;
+        }
+        console.log(sku_orders[i].data.join() + ' ' + sku_orders[i].num);
+        var tmp_order = sku_orders[i].data;
+        tmp_order.sort();
+        var tmp_num = sku_orders[i].num;
+        // 1单内有10款商品时，组合数量很庞大，浏览器卡了一下。目前业务只需要2和3的组合。
+        for (var j = 2; j <= tmp_order.length && j <= 3; j++) {
+            if (typeof best_selling_sku_packages[j] == 'undefined') {
+                best_selling_sku_packages[j] = {};
+            }
+            var c_array = Combinations(tmp_order, j);
+            console.log(c_array);
+            for (var k in c_array) {
+                var tmp_key = c_array[k].join('-');
+                if (typeof best_selling_sku_packages[j][tmp_key] == 'undefined') {
+                    best_selling_sku_packages[j][tmp_key] = tmp_num;
+                } else {
+                    best_selling_sku_packages[j][tmp_key] += tmp_num;
+                }
+            }
+        }
+    }
+    
+    var sortable = [];
+    for (var l in best_selling_sku_packages) {
+        var sortable = [];
+        for (var vehicle in best_selling_sku_packages[l]) {
+            sortable.push([vehicle, best_selling_sku_packages[l][vehicle]])
+        }
+        sortable.sort(function(a, b) {return b[1] - a[1]});
+        result['最高销量的' + l + '件搭配'] = {};
+        for (var i in sortable) {
+            result['最高销量的' + l + '件搭配'][sortable[i][0]] = sortable[i][1];
+        }
+    }
+    return result;
+}
+
+function to_csv(workbook) {
+        var result = [];
+        workbook.SheetNames.forEach(function(sheetName) {
+                var csv = X.utils.sheet_to_csv(workbook.Sheets[sheetName]);
+                if(csv.length > 0){
+                        result.push("SHEET: " + sheetName);
+                        result.push("");
+                        result.push(csv);
+                }
+        });
+        return result.join("\n");
+}
+
+function to_formulae(workbook) {
+        var result = [];
+        workbook.SheetNames.forEach(function(sheetName) {
+                var formulae = X.utils.get_formulae(workbook.Sheets[sheetName]);
+                if(formulae.length > 0){
+                        result.push("SHEET: " + sheetName);
+                        result.push("");
+                        result.push(formulae.join("\n"));
+                }
+        });
+        return result.join("\n");
+}
+
+function parseText() {
+    document.getElementById('out').innerHTML = '';
+    if(typeof console !== 'undefined') console.log("onload", new Date());
+    var data = document.getElementById('text').value;
+    var rows = data.split("\n");
+    var sheet = [];
+    for (var y in rows) {
+        if (!rows[y]) {
+            continue;
+        }
+        var cells = rows[y].split("\t");
+        if (cells[0] == '单据编号') {
+            continue;
+        }
+        console.log(' cells ', cells);
+        sheet.push({
+            '单据编号': cells[0],
+            'SKU': cells[1],
+            '数量': cells[2],
+        });
+    }
+    result = dealSheet(sheet);
+    document.getElementById('')
+    console.log('parseText result ', result);
+    isExcelText = true;
+    process_wb(result);
+}
+
+var tarea = document.getElementById('b64data');
+function b64it() {
+        if(typeof console !== 'undefined') console.log("onload", new Date());
+        var wb = X.read(tarea.value, {type: 'base64',WTF:wtf_mode});
+        process_wb(wb);
+}
+
+function process_wb(wb) {
+        var output = "";
+        switch(get_radio_value("format")) {
+                case "json":
+                    if (isExcelText) {
+                        var data = wb;
+                    } else {
+                        var data = to_json(wb);
+                    }
+                    console.log('data');
+                    console.log(data);
+                    out.innerHTML = '';
+                    for (var i in data) {
+                    out.innerHTML += '<div style="float:left;"><h2>' + i + '</h2><textarea cols="' + parseInt(15 + i.match(/\d+/)[0] * 10) + '" rows="30">' + JSON.stringify(data[i], 2, 2).slice(1, -1) + '</textarea></div>';
+                    }
+                    break;
+                case "form":
+                        output = to_formulae(wb);
+                        break;
+                default:
+                output = to_csv(wb);
+        }
+        if(typeof console !== 'undefined') console.log("output", new Date());
+}
+
+var drop = document.getElementById('drop');
+function handleDrop(e) {
+        isExcelText = false;
+        out.innerHTML = '';
+        e.stopPropagation();
+        e.preventDefault();
+        rABS = document.getElementsByName("userabs")[0].checked;
+        use_worker = document.getElementsByName("useworker")[0].checked;
+        var files = e.dataTransfer.files;
+        var f = files[0];
+        {
+                var reader = new FileReader();
+                var name = f.name;
+                reader.onload = function(e) {
+                        if(typeof console !== 'undefined') console.log("onload", new Date(), rABS, use_worker);
+                        var data = e.target.result;
+                        if(use_worker) {
+                                xw(data, process_wb);
+                        } else {
+                                var wb;
+                                if(rABS) {
+                                        wb = X.read(data, {type: 'binary'});
+                                } else {
+                                var arr = fixdata(data);
+                                        wb = X.read(btoa(arr), {type: 'base64'});
+                                }
+                                process_wb(wb);
+                        }
+                };
+                if(rABS) reader.readAsBinaryString(f);
+                else reader.readAsArrayBuffer(f);
+        }
+}
+
+function handleDragover(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+}
+
+if(drop.addEventListener) {
+        drop.addEventListener('dragenter', handleDragover, false);
+        drop.addEventListener('dragover', handleDragover, false);
+        drop.addEventListener('drop', handleDrop, false);
+}
+
+
+var xlf = document.getElementById('xlf');
+function handleFile(e) {
+        isExcelText = false;
+        out.innerHTML = '';
+        rABS = document.getElementsByName("userabs")[0].checked;
+        use_worker = document.getElementsByName("useworker")[0].checked;
+        var files = e.target.files;
+        var f = files[0];
+        {
+                var reader = new FileReader();
+                var name = f.name;
+                reader.onload = function(e) {
+                        if(typeof console !== 'undefined') console.log("onload", new Date(), rABS, use_worker);
+                        var data = e.target.result;
+                        if(use_worker) {
+                                xw(data, process_wb);
+                        } else {
+                                var wb;
+                                if(rABS) {
+                                        wb = X.read(data, {type: 'binary'});
+                                } else {
+                                var arr = fixdata(data);
+                                        wb = X.read(btoa(arr), {type: 'base64'});
+                                }
+                                process_wb(wb);
+                        }
+                };
+                if(rABS) reader.readAsBinaryString(f);
+                else reader.readAsArrayBuffer(f);
+        }
+}
+
+if(xlf.addEventListener) xlf.addEventListener('change', handleFile, false);
+</script>
