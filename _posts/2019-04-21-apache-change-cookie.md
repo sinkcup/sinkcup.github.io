@@ -75,5 +75,5 @@ curl -i 'http://demo.localhost/php.php' -H 'Authorization: Session npvh65dsqshgk
 ## References
 
 1. [RequestHeader Directive - mod_headers - Apache HTTP Server Version 2.4](https://httpd.apache.org/docs/2.4/mod/mod_headers.html#requestheader)
-2. [CO|cookie - RewriteRule Flags - Apache HTTP Server Version 2.4](https://httpd.apache.org/docs/current/rewrite/flags.html#flag_co)
+2. [CO cookie - RewriteRule Flags - Apache HTTP Server Version 2.4](https://httpd.apache.org/docs/current/rewrite/flags.html#flag_co)
 3. [Copy cookie to request header in Apache HTTPD - Server Fault](https://serverfault.com/questions/801106/copy-cookie-to-request-header-in-apache-httpd)
