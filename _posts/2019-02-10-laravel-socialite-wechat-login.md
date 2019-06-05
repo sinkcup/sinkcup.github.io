@@ -1,11 +1,11 @@
 ---
 layout: post
 title:  "Laravel 微信登录——一键安装，支持 UnionId"
-date:   2019-02-10 23:26:00 +0800
+date:   2019-06-05 18:10:00 +0800
 categories: Laravel, WeChat, Socialite
 ---
 
-最近做的 Laravel 网站项目需要微信登录功能，看了下[官方文档](https://laravel.com/docs/5.8/socialite)， Laravel 通过官方扩展包——Socialite 来做 OAuth 登录，官方支持 Facebook、 Twitter、 LinkedIn、 Google、GitHub 和 Bitbucket，其他社交网站通过开源项目——[Socialite Providers](https://socialiteproviders.netlify.com/)，但里面的微信登录有问题，所以我重做了一个开源项目 [Laravel Socialite Providers](https://github.com/laravel-socialite-providers/providers)。
+最近做的 Laravel 网站项目需要微信登录功能，看了下[官方文档](https://laravel.com/docs/socialite)， Laravel 通过官方扩展包——[Socialite](https://github.com/laravel/socialite) 来做 OAuth 登录，官方支持 Facebook、 Twitter、 LinkedIn、 Google、GitHub 和 Bitbucket，其他登录渠道依靠开源项目——[Socialite Providers](https://socialiteproviders.netlify.com/)，但里面的微信登录有问题，所以我重做了一个开源项目 [Laravel Socialite Providers](https://github.com/laravel-socialite-providers/providers)。
 
 ## 微信登录到底有几种？
 
@@ -87,10 +87,11 @@ WECHAT_WEB_UNION_ID_WITH=wechat_service_account,wechat_mini_program
 WECHAT_SERVICE_ACCOUNT_APP_ID=wx222
 WECHAT_SERVICE_ACCOUNT_APP_SECRET=zxcv
 WECHAT_SERVICE_ACCOUNT_CALLBACK_URL="http://example.com/login/wechat-service-account/callback"
-# 服务号需绑定 微信开放平台，才可使用 unionid，参考 https://sinkcup.github.io/wechat-login-union-id
 WECHAT_SERVICE_ACCOUNT_SCOPES=unionid
 WECHAT_SERVICE_ACCOUNT_UNION_ID_WITH=wechat_web,wechat_mini_program
 ```
+
+服务号需绑定 微信开放平台，才可使用 unionid，参考[《微信登录UnionID终极方案》](https://sinkcup.github.io/wechat-login-union-id)。
 
 服务号还支持“免授权登录”（只能获取 openid），修改 scopes 即可：
 
@@ -130,7 +131,7 @@ email_verified_at: NULL
 mysql> select social_accounts\G;
 *************************** 1. row ***************************
               id: 1
-         user_id: 2
+         user_id: 1
         provider: wechat_web
 provider_user_id: o8kXM0YPa8C_Qnih9cCwGpe1sABQ
     access_token: 22_tW4oW6k18xpeuOtiRrv87ArZd9cCLHQ2ECJSiAevgybrBEQIP8ywupvlGfv2A1byfJzVjmXpoBuQDkBdrAV0DBy0ZcCUHjDulvVJsAloZMY
@@ -145,7 +146,7 @@ provider_user_id: o8kXM0YPa8C_Qnih9cCwGpe1sABQ
              raw: {"openid":"o0Xnp5liQw-fxkm8OLrbbPvljr48","nickname":"sink","sex":1,"language":"zh_CN","city":"\u5609\u5b9a","province":"\u4e0a\u6d77","country":"\u4e2d\u56fd","headimgurl":"http:\/\/thirdwx.qlogo.cn\/mmopen\/vi_32\/xxx\/132","privilege":[],"unionid":"o8kXM0YPa8C_Qnih9cCwGpe1sABQ"}
 *************************** 2. row ***************************
               id: 2
-         user_id: 2
+         user_id: 1
         provider: wechat_service_account
 provider_user_id: o8kXM0YPa8C_Qnih9cCwGpe1sABQ
     access_token: 22_EMoMkkiUVgXVRmwLeX0mdweJYxeMOhsiaqwnGKHXMi8yCzsu5o66Vu3QVbq4RiKwiF1SJr7RW5YYdRAPQDYNOZ1z13PqD2Qe8DcTDRniDtx
