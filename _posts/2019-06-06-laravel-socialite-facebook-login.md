@@ -22,6 +22,7 @@ I write a similar command to make the socialite login page:
 ```
 composer require sinkcup/laravel-make-auth-socialite
 php artisan make:auth-socialite
+php artisan migrate
 ```
 
 change `config/services.php`
