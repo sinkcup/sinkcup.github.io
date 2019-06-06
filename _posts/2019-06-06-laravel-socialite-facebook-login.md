@@ -42,7 +42,7 @@ AUTH_SOCIAL_LOGIN_PROVIDERS=GitHub,Facebook
 # Facebook allows localhost, it's very friendly to developers
 FACEBOOK_APP_ID=123456
 FACEBOOK_APP_SECRET=secret
-FACEBOOK_CALLBACK_URL="http://localhost/login/weixinweb/callback"
+FACEBOOK_CALLBACK_URL="http://localhost/login/facebook/callback"
 ```
 
 visiting the Login page in browser, you can see everything is OK:
