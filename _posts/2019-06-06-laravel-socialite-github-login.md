@@ -48,7 +48,7 @@ GITHUB_CALLBACK_URL=http://localhost/login/github/callback
 
 visiting the Login page in a browser, you can see everything is OK:
 
-![Laravel Social Login demo page: Facebook](https://user-images.githubusercontent.com/4971414/59002113-ed7ba300-8843-11e9-87a9-b754dcdea5bf.png)
+![Laravel Social Login demo page](https://user-images.githubusercontent.com/4971414/59020731-2a17c080-887d-11e9-8cc7-c8c46f97dd1b.png)
 
 ![GitHub OAuth Login Authorize page](https://user-images.githubusercontent.com/4971414/59006611-764f0a80-8855-11e9-9ac9-0f4de8ff6e77.png)
 
