@@ -52,4 +52,6 @@ visiting the Login page in browser, you can see everything is OK:
 ![Facebook OAuth Login dialog](https://user-images.githubusercontent.com/4971414/59005039-96c79680-884e-11e9-8967-0ca90261ff06.png)
 
 
-If you want to change the Login page, fell free to edit `resources/views/auth/login.blade.php`;
+If you want to change the Login page, feel free to edit `resources/views/auth/login.blade.php`
+
+If you have any question, create a issue in the repo: [github.com/sinkcup/laravel-make-auth-socialite](https://github.com/sinkcup/laravel-make-auth-socialite)
