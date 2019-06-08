@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "微信登录UnionID终极方案——所有方式汇总"
-date:   2019-04-21 17:45:00 +0800
+date:   2019-06-08 22:05:00 +0800
 categories: WeChat, OAuth
 ---
 
@@ -100,29 +100,10 @@ App（Android/iOS） | 开放平台-移动应用 | 帐号1   | 符合OAuth
 
 还可以看出腾讯的头像链接竟然没有使用 HTTPS……手动改成 HTTPS 是能打开的，看来腾讯经过当初公众号文章被劫持插广告好几年之后，服务器普遍部署了 HTTPS，但由于技术管理不善，老接口没人敢动，一直还在用 HTTP。
 
-### Laravel 代码
+### 代码
 
-PHP Laravel 框架采用 [Socialite](https://laravel.com/docs/5.8/socialite) 来实现 OAuth，官方实现了这些登录：facebook, twitter, linkedin, google, github, gitlab 和 bitbucket，其他登录方式依靠开源社区贡献，收录在 [Socialite Providers](https://socialiteproviders.netlify.com/)，比如：
+[PHP Laravel](https://sinkcup.github.io/laravel-socialite-wechat-login)
 
-- [weixin](https://socialiteproviders.netlify.com/providers/weixin.html)：这是什么诡？微信的官方英文名叫做 [WeChat](https://www.wechat.com/) 啊……答案：这个其实是——“微信服务号”登录
-- [weixin-web](https://socialiteproviders.netlify.com/providers/weixin-web.html)：微信网站登录
-
-Laravel 官方没有实现一个用户绑定多种登录方式，我实现了，做了一个开源composer package：https://github.com/sinkcup/laravel-make-auth-socialite
-
-安装步骤：
-
-```
-php artisan make:auth
-composer require sinkcup/laravel-make-auth-socialite
-php artisan make:auth-socialite --force
-php artisan migrate
-```
-
-由于那两个Socialite Providers都是用的OpenID，而不是UnionID，所以安装以后需要打[补丁](https://gist.github.com/sinkcup/76ba56374e9442caa270c789d3178c83)：
-
-<script src="https://gist.github.com/sinkcup/76ba56374e9442caa270c789d3178c83.js"></script>
-
-有点麻烦，考虑重做两个采用 UnionID 的 Socialite Providers，正好把微信的英文名纠正过来。
 
 ## 微信小程序登录使用 UnionID
 
@@ -207,7 +188,7 @@ array(1) {
 
 ![微信开放平台 - 绑定小程序](https://user-images.githubusercontent.com/4971414/56465549-e2a2b580-6431-11e9-82f6-adb92579392a.png)
 
-### Laravel 代码
+### 代码
 
 TODO
 
