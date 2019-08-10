@@ -5,7 +5,7 @@ date:   2019-06-05 18:10:00 +0800
 categories: Laravel, WeChat, Socialite
 ---
 
-最近做的 Laravel 网站项目需要微信登录功能，看了下[官方文档](https://laravel.com/docs/socialite)， Laravel 通过官方扩展包——[Socialite](https://github.com/laravel/socialite) 来做 OAuth 登录，官方支持 Facebook、 Twitter、 LinkedIn、 Google、GitHub 和 Bitbucket，其他登录渠道依靠开源项目——[Socialite Providers](https://socialiteproviders.netlify.com/)，但里面的微信登录有问题，所以我重做了一个开源项目 [Laravel Socialite Providers](https://github.com/laravel-socialite-providers/providers)。
+最近做的 Laravel 网站项目需要微信登录功能，看了下[官方文档](https://laravel.com/docs/socialite)， Laravel 通过官方扩展包——[Socialite](https://github.com/laravel/socialite) 来做 OAuth 登录，官方支持 Facebook、 Twitter、 LinkedIn、 Google、GitHub 和 Bitbucket，其他登录渠道依靠开源项目——[Socialite Providers](https://socialiteproviders.netlify.com/)，但里面的微信登录有问题，所以我重做了一个开源项目 [Laravel Socialite Providers](https://github.com/laravel-socialite-providers/socialite-providers)。
 
 ## 微信登录到底有几种？
 
@@ -21,15 +21,14 @@ categories: Laravel, WeChat, Socialite
 ## 一键安装 Laravel 微信登录
 
 ```
-composer require laravel-socialite-providers/wechat-web
-composer require laravel-socialite-providers/wechat-service-account
+composer require laravel-socialite-providers/socialite-providers
 composer require sinkcup/laravel-make-auth-socialite
 php artisan make:auth
 php artisan make:auth-socialite --force
 php artisan migrate
 ```
 
-按照[文档](https://laravel-socialite-providers.github.io/providers/wechat-web/)进行下列操作：
+按照[文档](https://laravel-socialite-providers.github.io/socialite-providers/wechat-web/)进行下列操作：
 
 修改 `config\app.php`
 
