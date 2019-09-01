@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "如何开发大型 composer package（像 Google Cloud SDK 那样）
+title:  "如何开发大型 composer package（像 Google Cloud SDK 那样）"
 date:   2019-09-01 12:05:00 +0800
 categories: GitHub, composer
 ---
@@ -17,7 +17,6 @@ categories: GitHub, composer
  子包 | [googleapis/google-cloud-php-asset](https://github.com/googleapis/google-cloud-php-asset) | [google/cloud-asset](https://packagist.org/packages/google/cloud-asset)
  子包 | [googleapis/google-cloud-php-bigtable](https://github.com/googleapis/google-cloud-php-bigtable) | [google/cloud-bigtable](https://packagist.org/packages/google/cloud-bigtable)
  子包 | [googleapis/google-cloud-php-storage](https://github.com/googleapis/google-cloud-php-storage) | [google/cloud-storage](https://packagist.org/packages/google/cloud-storage)
- 
 
 其实这是“开发大型 composer package 的最佳实践”：
 
@@ -211,6 +210,8 @@ Google Cloud | [google/cloud](https://packagist.org/packages/google/cloud) | ★
 阿里云 | [alibabacloud/sdk](https://packagist.org/packages/alibabacloud/sdk) | ★★☆☆☆ | 子包手动发布，有个严重错误：没整明白版本号，强行让子包和主包版本号一致，导致不匹配
 腾讯云 | [tencentcloud/tencentcloud-sdk-php](https://packagist.org/packages/tencentcloud/tencentcloud-sdk-php) | ★☆☆☆☆ | 不会用子包，名字太长冗余了
     金山云 | [kscsdk/ksyun_sdk](https://packagist.org/packages/kscsdk/ksyun_sdk) | ☆☆☆☆☆ | 不会用子包，名字还起错了（不符合 Domain/URL Slug 规范）
+
+……不忍直视，中国的云计算厂商都还有很大的进步空间:)
 
 参考资料：
 
