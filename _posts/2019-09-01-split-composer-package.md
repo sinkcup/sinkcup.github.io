@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "如何开发大型 composer package（像 Google Cloud SDK 那样）"
+title:  "如何开发大型 composer package（像 Google Cloud SDK 那样的）"
 date:   2019-09-01 12:05:00 +0800
 categories: GitHub, composer
 ---
@@ -204,12 +204,12 @@ workflows:
 
 可以看出各家的开源技术水平：
 
-云计算厂商 | packagist.org | 开源技术水平 | 技术细节
+云计算厂商 | 开源技术水平 | 技术细节 | packagist.org
 ---------|---------------|---------|-------
-Google Cloud | [google/cloud](https://packagist.org/packages/google/cloud) | ★★★★★ | 子包自动发布
-阿里云 | [alibabacloud/sdk](https://packagist.org/packages/alibabacloud/sdk) | ★★☆☆☆ | 子包手动发布，有个严重错误：没整明白版本号，强行让子包和主包版本号一致，导致不匹配
-腾讯云 | [tencentcloud/tencentcloud-sdk-php](https://packagist.org/packages/tencentcloud/tencentcloud-sdk-php) | ★☆☆☆☆ | 不会用子包，名字太长冗余了
-    金山云 | [kscsdk/ksyun_sdk](https://packagist.org/packages/kscsdk/ksyun_sdk) | ☆☆☆☆☆ | 不会用子包，名字还起错了（不符合 Domain/URL Slug 规范）
+Google Cloud | ★★★★★ | 子包自动发布 | [google/cloud](https://packagist.org/packages/google/cloud)
+阿里云 | ★★☆☆☆ | 子包手动发布，有个严重错误：没整明白版本号，强行让子包和主包版本号一致，导致不匹配 | [alibabacloud/sdk](https://packagist.org/packages/alibabacloud/sdk)
+腾讯云 | ★☆☆☆☆ | 不会用子包，名字太长冗余了 | [tencentcloud/tencentcloud-sdk-php](https://packagist.org/packages/tencentcloud/tencentcloud-sdk-php)
+金山云 | ☆☆☆☆☆ | 不会用子包，名字还起错了（不符合 Domain/URL Slug 规范） | [kscsdk/ksyun_sdk](https://packagist.org/packages/kscsdk/ksyun_sdk)
 
 ……中国的公有云计算厂商都还有很大的进步空间:)
 
