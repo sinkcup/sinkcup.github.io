@@ -48,7 +48,7 @@ categories: GitHub, composer
 
 拆分 Git 仓库：[split-packages.sh](https://github.com/laravel-socialite-providers/socialite-providers/blob/master/split-packages.sh)
 
-```shell script
+```
 #!/bin/bash
 set -e
 
@@ -211,7 +211,7 @@ Google Cloud | [google/cloud](https://packagist.org/packages/google/cloud) | ★
 腾讯云 | [tencentcloud/tencentcloud-sdk-php](https://packagist.org/packages/tencentcloud/tencentcloud-sdk-php) | ★☆☆☆☆ | 不会用子包，名字太长冗余了
     金山云 | [kscsdk/ksyun_sdk](https://packagist.org/packages/kscsdk/ksyun_sdk) | ☆☆☆☆☆ | 不会用子包，名字还起错了（不符合 Domain/URL Slug 规范）
 
-……不忍直视，中国的云计算厂商都还有很大的进步空间:)
+……中国的公有云计算厂商都还有很大的进步空间:)
 
 参考资料：
 
