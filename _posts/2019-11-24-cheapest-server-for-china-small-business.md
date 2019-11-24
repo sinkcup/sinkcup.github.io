@@ -33,8 +33,8 @@ Swarm 已经没落，怎么办？
 
 最佳实践：
 
-小网站：[阿里云-云虚拟主机](https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=vt3zcwxg) + [七牛云存储-小流量免费](https://portal.qiniu.com/signup?code=1h6w1ounb13yp)；
-Serverless 备案：阿里云-云虚拟主机（当然还是有点浪费，Serverless 时代即将来临，各个云计算厂商将如何解决备案问题，值得持续关注）；
+- 小网站：[阿里云-云虚拟主机](https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=vt3zcwxg) + [七牛云存储-小流量免费](https://portal.qiniu.com/signup?code=1h6w1ounb13yp)；
+- Serverless 备案：阿里云-云虚拟主机（当然还是有点浪费，Serverless 时代即将来临，各个云计算厂商将如何解决备案问题，值得持续关注）；
 
 参考各个云计算厂商价格对比：
 
