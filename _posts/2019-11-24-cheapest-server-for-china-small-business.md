@@ -29,7 +29,7 @@ Swarm 已经没落，怎么办？
 - K8s Serverless（[阿里云](https://www.aliyun.com/product/eci?userCode=vt3zcwxg)、[腾讯云](https://cloud.tencent.com/product/cis)） 更好更先进，支持1台，但“无服务器”架构没有固定IP，没法备案。
 - 阿里云 Web+ 和 K8s Serverless 类似，为了国产化？
 
-才想起来当年上学时用过的虚拟主机（web hosting），AWS、腾讯云都不做这个，太低端了，而阿里云收购的万网在做，看了下，竟然还在升级，支持 PHP 7.2 和 HTTPS，只要__206 元/年__，包括了 web server 和 数据库，几乎解决了小网站的所有问题！
+才想起来当年上学时用过的虚拟主机（web hosting），AWS、腾讯云都不做这个，太低端了，而阿里云收购的万网在做，看了下，竟然还在升级，支持 PHP 7.2 和 HTTPS，只要 __206 元/年__，包括了 web server 和 数据库，几乎解决了小网站的所有问题！
 
 最佳实践：
 
