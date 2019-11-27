@@ -23,4 +23,4 @@ categories: Jenkins, docker
 
 已在 [coding.net 持续集成](https://coding.net/products/ci?cps_source=PIevZ6Jr)（免费的 Jenkins 云服务）中运行成功，截图：
 
-![CODING 持续集成](https://upload-images.jianshu.io/upload_images/52469-2d223913b5862353.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![CODING 持续集成](https://user-images.githubusercontent.com/4971414/69701055-fbd9b600-1126-11ea-9028-1330a091150a.png)
