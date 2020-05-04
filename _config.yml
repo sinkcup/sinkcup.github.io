@@ -28,6 +28,7 @@ plugins:
 
 # Outputting
 permalink: "/:title"
+timezone: "Asia/Shanghai"
 
 # Exclude from processing.
 exclude:
