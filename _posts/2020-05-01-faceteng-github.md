@@ -12,6 +12,8 @@ date:   2020-05-01 05:01:51 +0800
 
 ![南京石匠（脸疼、不占座）答应 GitHub 报销，却拖欠近 1 年](https://user-images.githubusercontent.com/4971414/80939530-8d083380-8e0f-11ea-96bd-1e539f4a2dfa.png)
 
+![南京石匠（脸疼、不占座） 劳动仲裁判决：宁鼓劳人仲案字\[2019\]第754号](https://user-images.githubusercontent.com/4971414/80944551-6b617900-8e1c-11ea-931c-40bc95f8073a.jpg)
+
 我提供了 GitHub 收据，而公司不给报，让我提供发票，就这样拖了近 1 年……
 
 后来税务的朋友告知：国外收据（receipt）可以在国内报销。
