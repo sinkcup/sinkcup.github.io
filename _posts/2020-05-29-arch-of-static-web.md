@@ -39,7 +39,7 @@ HTML 文件并不需要运算，不消耗性能，一台服务器可以支撑很
 - 无内容的单页应用（SPA）：React/VUE 等框架开发的应用；
 - 有内容的 HTML：手写或「程序生成 HTML」；
 
-**警告**：React/VUE SPA 不带内容，难以被搜索引擎收录，不适合作为公司官网、博客。推荐使用 [MkDocs](https://www.mkdocs.org/)、[Hexo](https://hexo.io/zh-cn/)、[VUE Nuxt](https://zh.nuxtjs.org/)、[React Next](https://nextjs.org/)。
+**警告**：React/VUE SPA 不带内容，难以被搜索引擎收录，不适合作为公司官网、博客。如果有 SEO 需求，推荐使用 [MkDocs](https://www.mkdocs.org/)、[Hexo](https://hexo.io/zh-cn/)、[VUE Nuxt](https://zh.nuxtjs.org/)、[React Next](https://nextjs.org/)。
 
 ## 实战：静态网站自动部署到云存储
 
@@ -58,10 +58,8 @@ HTML 文件并不需要运算，不消耗性能，一台服务器可以支撑很
 ![腾讯云存储 COS 自定义加速域名](https://user-images.githubusercontent.com/4971414/83241781-e88ace80-a1cd-11ea-9e75-387c368f32b9.png)
 
 5. 在「DNS 解析」中设置 www 和 根域名，确保两者皆可访问，并且二选一进行跳转避免影响 SEO，推荐 2 种方案：
-  - 此域名无邮箱：根域名 CNAME 到 CDN，www 显性 URL 跳转到根域名；
+  - 此域名无邮箱：根域名 CNAME 到 CDN，www 显性 URL 跳转到根域名，本文采用此方案，把 [www.devops.host](http://www.devops.host) 跳转到了 [devops.host](https://devops.host)；
   - 此域名有邮箱：www CNAME 到 CDN，根域名显性 URL 跳转到 www；
-
-下图采用 no-www 方案：把 [www.devops.host](http://www.devops.host) 跳转到了 [devops.host](https://devops.host)。
 ![DNS 解析 no-www](https://user-images.githubusercontent.com/4971414/83242946-c8f4a580-a1cf-11ea-92bd-644c762b0059.png)
 
 6. 在「内容分发网络 CDN」——「域名管理」——某个域名——「高级设置」——「HTTPS 配置」中，申请免费的 HTTPS 证书，并开启「HTTPS回源」、「强制跳转 HTTPS」和「HTTP 2.0」。
