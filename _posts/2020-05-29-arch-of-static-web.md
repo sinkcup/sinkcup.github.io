@@ -57,9 +57,11 @@ HTML 文件并不需要运算，不消耗性能，一台服务器可以支撑很
 4. 如果你的域名已备案，则可在「腾讯云 对象存储」的设置中绑定「自定义加速域名」，会提示开通「内容分发网络 CDN」，小型网站推荐选择「按使用流量计费」（[每月赠送 10GB](https://buy.cloud.tencent.com/price/cdn)，一般用不完），将会获得一个 CNAME。
 ![腾讯云存储 COS 自定义加速域名](https://user-images.githubusercontent.com/4971414/83241781-e88ace80-a1cd-11ea-9e75-387c368f32b9.png)
 
-5. 在「DNS 解析」中设置 www 和 根域名，推荐 2 种方案：
+5. 在「DNS 解析」中设置 www 和 根域名，确保两者皆可访问，并且二选一进行跳转避免影响 SEO，推荐 2 种方案：
   - 此域名无邮箱：根域名 CNAME 到 CDN，www 显性 URL 跳转到根域名；
   - 此域名有邮箱：www CNAME 到 CDN，根域名显性 URL 跳转到 www；
+
+下图采用 no-www 方案：把 [www.devops.host](http://www.devops.host) 跳转到了 [devops.host](https://devops.host)。
 ![DNS 解析 no-www](https://user-images.githubusercontent.com/4971414/83242946-c8f4a580-a1cf-11ea-92bd-644c762b0059.png)
 
 6. 在「内容分发网络 CDN」——「域名管理」——某个域名——「高级设置」——「HTTPS 配置」中，申请免费的 HTTPS 证书，并开启「HTTPS回源」、「强制跳转 HTTPS」和「HTTP 2.0」。
