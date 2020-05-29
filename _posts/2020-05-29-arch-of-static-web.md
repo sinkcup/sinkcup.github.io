@@ -17,7 +17,7 @@ categories: Arch
 
 1991 年，万维网诞生，包括 3 项关键技术：统一资源标志符（URI）、HTML、HTTP。
 
-初期的网站架构很简单，手写 HTML 或者用程序生成 HTML，然后通过 FTP/SCP 等方式上传到服务器。
+初期的网站架构很简单，手写 HTML 或者用程序生成 HTML，通过 FTP/SCP 等方式上传到服务器。
 
 HTML 文件并不需要运算，不消耗性能，一台服务器可以支撑很多个网站，而自行购买一台服务器只部署一个网站，成本高昂。所以网页托管服务（Web hosting service）应运而生，价格低廉甚至免费（通过嵌入广告盈利）。
 
@@ -27,29 +27,29 @@ HTML 文件并不需要运算，不消耗性能，一台服务器可以支撑很
 
 2004 年，Gmail 大规模使用符合标准的跨浏览器 Ajax，前后端分离逐渐流行起来。
 
-2006 年，AWS 发布了云存储，宣告了云计算时代的诞生。HTML/CSS/JS 作为简单的小文件，无需特殊对待，部署到云存储上即可，配合 CDN，有如下优点：
+2006 年，AWS 发布了云存储，宣告了云计算时代的诞生。HTML/CSS/JS 作为简单的小文件，无需特殊处理，部署到云存储，再配合 CDN，成了静态网站架构最佳实践，有如下优点：
 
-- 成本低：云存储/CDN 比服务器便宜很多（比如「[腾讯云 对象存储 COS](https://url.cn/53ljQjJ)」约 0.1 元/GB/月、[腾讯云 CDN 每月赠送 10GB 流量](https://buy.cloud.tencent.com/price/cdn)）；
+- 成本低：云存储/CDN 比服务器便宜很多（比如「[腾讯云 对象存储 COS](https://url.cn/53ljQjJ)」约 0.1 元/GB/月、[腾讯云 CDN 每月赠送 10GB 流量](https://buy.cloud.tencent.com/price/cdn)），一个典型的公司官网一年费用不超过 10 元；
 - 访问快：CDN 能在全国甚至全球快速访问，比服务器更快。
 
-2010 年起，AngularJS、Vue.js 、React 等框架陆续诞生，开发的单页应用（SPA）使用 Ajax 技术实现了彻底的前后端分离，也意味着前后端单独部署。
+2010 年起，AngularJS、Vue.js、React 等框架陆续诞生，开发的单页应用（SPA）使用 Ajax 技术实现了彻底的前后端分离，也意味着前后端单独部署。
 
 目前，静态网站有 2 种：
 
-- 无内容的单页应用：VUE/React SPA；
+- 无内容的单页应用（SPA）：React/VUE 等框架开发的应用；
 - 有内容的 HTML：手写或「程序生成 HTML」；
 
-**警告**：VUE/React 生成的 HTML 不带内容，难以被搜索引擎收录，不适合作为公司官网、博客。推荐使用 [MkDocs](https://www.mkdocs.org/)、[Hexo](https://hexo.io/zh-cn/)、[VUE Nuxt](https://zh.nuxtjs.org/)、[React Next](https://nextjs.org/)。
+**警告**：React/VUE SPA 不带内容，难以被搜索引擎收录，不适合作为公司官网、博客。推荐使用 [MkDocs](https://www.mkdocs.org/)、[Hexo](https://hexo.io/zh-cn/)、[VUE Nuxt](https://zh.nuxtjs.org/)、[React Next](https://nextjs.org/)。
 
 ## 实战：静态网站自动部署到云存储
 
-通过「持续集成」生成 HTML，并自动部署到「云存储」，变成静态网站。
+通过「持续集成」生成 HTML，自动部署到「云存储」，变成静态网站。
 
-1. 在「腾讯云 对象存储 COS」中创建一个「公有读私有写」的「存储桶」，并在设置中开启「静态网站」，即可获得分配的二级域名「访问链接」。
+1. 在「[腾讯云 对象存储 COS]((https://url.cn/53ljQjJ))」中创建一个「公有读私有写」的「存储桶」，并在设置中开启「静态网站」，获得分配的二级域名「访问链接」。
 ![腾讯云存储 COS 创建存储桶](https://user-images.githubusercontent.com/4971414/83237611-c2623000-a1c7-11ea-9ab4-67c8c33587bc.png)
 ![腾讯云存储 COS 开启静态网站](https://user-images.githubusercontent.com/4971414/83237837-1c62f580-a1c8-11ea-8750-1a50d85a8dab.png)
 
-2. 把项目代码推送到「[CODING 代码仓库](https://coding.net/products/repo?cps_source=PIevZ6Jr)」，在「[CODING 持续集成](https://coding.net/products/ci?cps_source=PIevZ6Jr)」中创建一个构建计划，选择「构建并上传到腾讯云 COS」模板，填入「腾讯云 COS 访问密钥」等信息，根据自己的代码框架修改编译命令。创建后会自动触发构建，等待构建成功，访问[分配的链接](https://devops-host-1257110097.cos.ap-nanjing.myqcloud.com/index.html)即可看到网站。下次推送代码即可自动部署。
+2. 把项目代码推送到「[CODING 代码仓库](https://coding.net/products/repo?cps_source=PIevZ6Jr)」，在「[CODING 持续集成](https://coding.net/products/ci?cps_source=PIevZ6Jr)」中创建一个构建计划，选择「构建并上传到腾讯云 COS」模板，填入「腾讯云 COS 访问密钥」等信息，根据自己的代码框架修改编译命令。创建后会自动触发构建，等待构建成功，访问分配的链接即可看到网站。下次推送代码即可自动部署。
 ![CODING 持续集成 模板列表](https://user-images.githubusercontent.com/4971414/83238886-a8c1e800-a1c9-11ea-82ab-aab4d702f7b7.png)
 ![CODING 持续集成 模板填写参数](https://user-images.githubusercontent.com/4971414/83239641-d0fe1680-a1ca-11ea-8b4f-cf9b025de135.png)
 ![CODING 持续集成 构建成功](https://user-images.githubusercontent.com/4971414/83240752-69e16180-a1cc-11ea-9d45-7bfa6a107d7e.png)
