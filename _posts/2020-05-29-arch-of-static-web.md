@@ -62,7 +62,7 @@ HTML 文件并不需要运算，不消耗性能，一台服务器可以支撑很
   - 此域名有邮箱：www 指向 CDN，根域名跳转到 www；
 ![DNS 解析 no-www](https://user-images.githubusercontent.com/4971414/83242946-c8f4a580-a1cf-11ea-92bd-644c762b0059.png)
 
-6. 在「内容分发网络 CDN」——「域名管理」——某个域名——「高级设置」——「HTTPS 配置」中，申请免费的 HTTPS 证书，并开启「HTTPS回源」、「强制跳转 HTTPS」和「HTTP 2.0」。
+6. 在「内容分发网络 CDN」——「域名管理」——某个域名——「高级设置」——「HTTPS 配置」中，申请免费的 HTTPS 证书，并开启「HTTPS 回源」、「强制跳转 HTTPS」和「HTTP 2.0」。
 ![腾讯云 内容分发网络 开启 HTTPS](https://help-assets.codehub.cn/enterprise/20200227181247.png)
 
 7. 开通「[腾讯云 云函数 SCF](https://url.cn/5pbRzdO)」，按照文档「[使用 SCF 自动刷新被 CDN 缓存的 COS 资源](https://cloud.tencent.com/document/product/436/30434)」上传代码。
@@ -93,24 +93,26 @@ pipeline {
     }
     stage('安装依赖') {
       steps {
-        sh 'npm i -g lint-md-cli && pip install mkdocs'
+        sh 'npm i -g lint-md-cli'
+        sh 'pip install mkdocs'
       }
     }
-    stage('单元测试') {
+    stage('检查书写规范') {
       steps {
         sh 'lint-md docs/'
       }
     }
     stage('编译') {
       steps {
-        sh 'mkdocs build && mv site build'
+        sh 'mkdocs build'
       }
     }
     stage('上传到 COS Bucket') {
       steps {
-        sh "coscmd config -a ${env.COS_SECRET_ID} -s ${env.COS_SECRET_KEY} -b ${env.COS_BUCKET_NAME} -r ${env.COS_BUCKET_REGION}"
-        sh 'coscmd upload -r ./build/ /'
-        echo "上传成功，访问 https://${env.COS_BUCKET_NAME}.cos.${env.COS_BUCKET_REGION}.myqcloud.com/index.html 预览效果"
+        sh "coscmd config -a ${env.COS_SECRET_ID} -s ${env.COS_SECRET_KEY}" +
+           " -b ${env.COS_BUCKET_NAME} -r ${env.COS_BUCKET_REGION}"
+        sh 'coscmd upload -r ./site/ /'
+        echo "预览 https://${env.COS_BUCKET_NAME}.cos-website.${env.COS_BUCKET_REGION}.myqcloud.com/"
       }
     }
   }
@@ -121,7 +123,7 @@ pipeline {
 
 变量名              | 含义             | 参考值
 -------------------|------------------|---------
-COS_SECRET_ID  | 腾讯云访问密钥 ID  | 3Rerpwya4CEUT3xavlNbdgib4ppWv3I69Hxa
-COS_SECRET_KEY | 腾讯云访问密钥 KEY | 9MPySpAWocYYRI7B5Dp5Ww592HXs4u4Q
+COS_SECRET_ID  | 腾讯云访问密钥 ID  | stringLength36stringLength36string36
+COS_SECRET_KEY | 腾讯云访问密钥 KEY | stringLength32stringLength323232
 COS_BUCKET_NAME | 腾讯云对象存储桶   | devops-host-1257110097
 COS_BUCKET_REGION | 腾讯云对象存储区域  | ap-nanjing
