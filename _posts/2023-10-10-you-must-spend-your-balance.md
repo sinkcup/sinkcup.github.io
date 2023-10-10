@@ -17,7 +17,7 @@ It's easy!
 
 If you have 0.29, 0.39, 0.49, 0.59, 0.69, 0.79, 0.89, 0.95, 0.99 or 1 USD, you could buy a item equal the balance, because App Store allow these price.
 
-Which App have some many prices? this one: https://apps.apple.com/us/app/trim-video/id6444441547
+Which App have some many prices? this one: [https://apps.apple.com/us/app/trim-video/id6444441547](https://apps.apple.com/us/app/trim-video/id6444441547)
 
 If you have other number, such 0.5 USD, you can't find any item equal the balance, because App Store don't allow these price. In fact, there is a way:
 
@@ -27,7 +27,7 @@ If you have other number, such 0.5 USD, you can't find any item equal the balanc
 
 There is a calculator that can help you. search "trim video zero" in App Store or click this URL:
 
-https://apps.apple.com/us/app/trim-video/id6444441547
+[https://apps.apple.com/us/app/trim-video/id6444441547](https://apps.apple.com/us/app/trim-video/id6444441547)
 
 ![trim video app - calculate how to spend all app store balance](https://github.com/sinkcup/sinkcup.github.io/assets/4971414/88f54203-c535-4d1e-a95f-a4d8b55cacfb)
 
