@@ -9,7 +9,7 @@ If you have App Store Balance, you can't change country, it will show error:
 
 > You have a store credit balance; you must spend your balance before you can change stores.
 
-![](https://github.com/sinkcup/sinkcup.github.io/assets/4971414/d745ce52-c156-4f89-bff6-22684545da99")
+![](https://github.com/sinkcup/sinkcup.github.io/assets/4971414/d745ce52-c156-4f89-bff6-22684545da99)
 
 How to spend all balance?
 
@@ -29,6 +29,6 @@ There is a calculator that can help you. search "trim video zero" in App Store o
 
 [https://apps.apple.com/us/app/trim-video/id6444441547](https://apps.apple.com/us/app/trim-video/id6444441547)
 
-![trim video app - calculate how to spend all app store balance](https://github.com/sinkcup/sinkcup.github.io/assets/4971414/88f54203-c535-4d1e-a95f-a4d8b55cacfb)
+![calculate how to spend all app store balance - trim video app](https://github.com/sinkcup/sinkcup.github.io/assets/4971414/cbce28cd-f641-4bf7-9fd4-ab9cb103df6a)
 
-![trim video app - click cart](https://github.com/sinkcup/sinkcup.github.io/assets/4971414/a10c45fd-668d-446d-8819-d53dba8bb1f5")
+![trim video app - click cart](https://github.com/sinkcup/sinkcup.github.io/assets/4971414/a10c45fd-668d-446d-8819-d53dba8bb1f5)
